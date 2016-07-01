@@ -6,25 +6,25 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace CsvMergeLib
+namespace CsvMergeUtil
 {
     public sealed class Merger : IDisposable
     {
-        public CsvReader Master { get; private set; }
+        CsvReader Master { get; set; }
 
-        public CsvReader Slave { get; private set; }
+        CsvReader Slave { get; set; }
 
-        public CsvWriter Output { get; private set; }
+        CsvWriter Output { get; set; }
 
-        public Dictionary<string, int> MasterHeaders { get; private set; }
+        Dictionary<string, int> MasterHeaders { get; set; }
 
-        public HashSet<string> MergeHeaders { get; private set; }
+        Dictionary<string, int> SlaveHeaders { get; set; }
 
-        public Dictionary<string, int> SlaveHeaders { get; private set; }
+        HashSet<string> MergeHeaders { get; set; }
 
-        public HashSet<string> KeyColumns { get; private set; }
+        HashSet<string> KeyColumns { get; set; }
 
-        public StringComparer StringComparer { get; private set; }
+        StringComparer StringComparer { get; set; }
 
         public Merger(TextReader master, TextReader slave, TextWriter output, IEnumerable<string> keyColumns)
         {
@@ -109,7 +109,6 @@ namespace CsvMergeLib
             {
                 if (disposing)
                 {
-                    // TODO: dispose managed state (managed objects).
                     Master.Dispose();
                     Slave.Dispose();
                     Output.Dispose();
